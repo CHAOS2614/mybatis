@@ -9,6 +9,13 @@
         from user
     </select>
 
+    <select id="findByIdAndUsername" resultType="cn.edu.bjfu.domain.User">
+        select *
+        from user
+        where id = #{id}
+          and username = #{username}
+    </select>
+
 
     <!-- useGeneratedKeys:使用自增主键值策略
          keyProperty:指定对应的主键属性，也就是mybatis获取主键值以后，将这个值给javaBean的哪个属性-->
@@ -19,11 +26,16 @@
 
     <update id="updateUser">
         update user
-        set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address}
-        where id=#{id}
+        set username = #{username},
+            birthday = #{birthday},
+            sex      = #{sex},
+            address  = #{address}
+        where id = #{id}
     </update>
 
     <delete id="deleteUser">
-        delete from user where id=#{id}
+        delete
+        from user
+        where id = #{id}
     </delete>
 </mapper>

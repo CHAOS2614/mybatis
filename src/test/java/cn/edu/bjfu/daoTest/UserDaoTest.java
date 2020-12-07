@@ -45,6 +45,17 @@ public class UserDaoTest {
     }
 
     @Test
+    public void findByIdAndUsername(){
+        try (SqlSession session = getSession()) {
+            UserDao userDao = session.getMapper(UserDao.class);
+            User user = userDao.findByIdAndUsername(58, "index");
+            System.out.println(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void addUser() {
         try (SqlSession session = getSession()) {
             cn.edu.bjfu.dao.UserDao userDao = session.getMapper(cn.edu.bjfu.dao.UserDao.class);

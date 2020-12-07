@@ -1,6 +1,7 @@
 package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,6 +12,13 @@ import java.util.List;
  */
 public interface UserDao {
 
+    /**
+     * 根据id和username查询
+     * @param id id
+     * @param username username
+     * @return user
+     */
+    User findByIdAndUsername(@Param("id")Integer id,@Param("username") String username);
     /**
      * 查询所有user
      * @return 所有user的链表
