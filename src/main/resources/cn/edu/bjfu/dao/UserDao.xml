@@ -9,7 +9,10 @@
         from user
     </select>
 
-    <insert id="addUser">
+
+    <!-- useGeneratedKeys:使用自增主键值策略
+         keyProperty:指定对应的主键属性，也就是mybatis获取主键值以后，将这个值给javaBean的哪个属性-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
         insert into user (username, birthday, sex, address)
         values (#{username}, #{birthday}, #{sex}, #{address})
     </insert>

@@ -48,8 +48,11 @@ public class UserDaoTest {
     public void addUser() {
         try (SqlSession session = getSession()) {
             cn.edu.bjfu.dao.UserDao userDao = session.getMapper(cn.edu.bjfu.dao.UserDao.class);
-            userDao.addUser(new User(null, "志志", new Date(), "男", "北京海淀"));
+            User user = new User(null, "chaos", new Date(), "男", "北京密云");
+            userDao.addUser(user);
             session.commit();
+            System.out.println(user);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
