@@ -16,4 +16,23 @@ public interface UserDao {
      * @return 所有user的链表
      */
     List<User> findAll();
+
+    /**
+     * 添加一个user
+     * @param user 要添加的user
+     */
+    void addUser(User user);
+
+    /**
+     * 修改一个user信息
+     * @param user 要修改的信息
+     */
+    void updateUser(User user);
+
+    /**
+     * 删除一个user
+     * @param id 要删除user的id
+     * @return 影响行数
+     */
+    Long deleteUser(Integer id);
 }

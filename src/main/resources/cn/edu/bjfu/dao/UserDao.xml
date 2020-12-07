@@ -2,9 +2,25 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="cn.edu.bjfu.dao.UserDao">
+<mapper namespace="cn.edu.bjfu.dao.UserDao">
     <!-- 配置查询所有 -->
-    <select id="findAll" resultType="cn.edu.bjfu.domain.User" >
-        select * from user
+    <select id="findAll" resultType="cn.edu.bjfu.domain.User">
+        select *
+        from user
     </select>
+
+    <insert id="addUser">
+        insert into user (username, birthday, sex, address)
+        values (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <update id="updateUser">
+        update user
+        set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteUser">
+        delete from user where id=#{id}
+    </delete>
 </mapper>
