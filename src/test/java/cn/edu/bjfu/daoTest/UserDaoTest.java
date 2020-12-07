@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -40,7 +39,7 @@ public class UserDaoTest {
         List<User> users;
         if("sqlmapconfig.xml".equals(xmlName)){
             System.out.println("使用--->[" + xmlName +"]配置文件，xml配置文件映射方式示例");
-            UserDao userDao = sqlSession.getMapper(UserDao.class);
+            UserDao userDao = sqlSession.getMapper(cn.edu.bjfu.dao.UserDao.class);
             //使用代理对象执行方法
             users = userDao.findAll();
         }else {

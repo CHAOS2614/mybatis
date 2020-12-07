@@ -3,27 +3,83 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
-<configuration>
-    <!-- 配置环境 -->
-    <environments default="mysql">
 
-        <!-- 配置mysql的环境 -->
-        <environment id="mysql">
+<configuration>
+
+    <!-- 1.mybatis可以使用properties来引入外部properties配置文件的内容
+           resource:引入类路径下的资源
+           url:引入网络路径或磁盘路径下的资源 -->
+    <properties resource="dbconfig.properties" />
+
+    <!-- 2.settings包含很多重要的设置项
+           setting:用来设置每一个设置项
+                name:设置项名
+                value:设置项取值-->
+    <settings>
+        <!-- 开启驼峰命名转化，例如数据库中last_name和lastName可以对应上 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 3.typeAliases为某个java类型起别名
+                type:指定要起别名的类型全类名;默认别名就是类名小写
+                alias:指定新名
+                别名不区分大小写
+                可以使用注解@Alias起别名-->
+    <typeAliases>
+        <typeAlias type="cn.edu.bjfu.domain.User"/>
+        <!-- package:批量起别名
+                name:指定包名，起默认别名 -->
+        <package name=""/>
+    </typeAliases>
+
+    <!--  -->
+
+    <!-- 4.environments:可以配置多种环境;default指定使用的环境，可以实现快速切换环境
+           <environment:配置一个具体的环境;id代表当前环境的唯一标识
+                transactionManager:事务管理器，了解，以后交给spring
+                    type:事务管理器的类型（JDBC|MANAGED）
+                DataSource:数据源
+                    type:数据源类型（UNPOOLED|POOLED|JNDI）-->
+    <environments default="development">
+        
+        <!-- 配置测试时的mysql的环境 -->
+        <environment id="test">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED" />
+        </environment>
+
+        <!-- 配置开发时的mysql的环境 -->
+        <environment id="development">
             <!-- 配置事务的类型 -->
             <transactionManager type="JDBC"/>
             <!-- 配置数据源(连接池) -->
             <dataSource type="POOLED">
                 <!-- 配置连接数据库的4个基本信息 -->
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql:///mybatis"/>
-                <property name="username" value="root"/>
-                <property name="password" value="Chaos_1022"/>
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}" />
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
             </dataSource>
         </environment>
     </environments>
 
-    <!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 -->
+    <!-- 5.databaseIdProvider:支持多数据库厂商
+           type="":
+                作用就是得到数据库厂商的标识，mybatis就能根据数据库厂商标识来执行不同的sql-->
+    <databaseIdProvider type="DB_VENDOR" >
+        <!-- 为不同的数据库厂商起别名 -->
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+    </databaseIdProvider>
+
+    <!-- 6.指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 -->
     <mappers>
+        <!-- 注册一个sql映射
+                resource:引用类路径下的sql映射
+                url:
+                class:引用接口
+                    1.有sql映射文件，且与接口同名并在同一目录下
+                    2.利用注解-->
         <mapper resource="cn/edu/bjfu/dao/UserDao.xml"/>
     </mappers>
 </configuration>
