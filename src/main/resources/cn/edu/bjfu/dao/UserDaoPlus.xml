@@ -62,4 +62,11 @@
         from user
         where id = #{id}
     </select>
+
+    <!--************************************************************************************************************-->
+    <select id="getUsersByDeptId" resultType="cn.edu.bjfu.domain.User">
+        select *
+        from user
+        where d_id = #{deptId}
+    </select>
 </mapper>

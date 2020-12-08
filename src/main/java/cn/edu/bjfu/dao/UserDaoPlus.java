@@ -2,6 +2,8 @@ package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
 
+import java.util.List;
+
 /**
  * @author Chao Huaiyu
  * @date 2020/12/8
@@ -22,5 +24,12 @@ public interface UserDaoPlus {
      * @return user
      */
     User getUserAndDeptStep(Integer id);
+
+    /**
+     * 根据部门id查用户
+     * @param deptId 部门id
+     * @return users
+     */
+    List<User> getUsersByDeptId(Integer deptId);
 
 }

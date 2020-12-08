@@ -14,4 +14,12 @@ public interface DepartmentDao {
      * @return 部门
      */
     Department getDepartmentById(Integer id);
+
+    /**
+     * 根据部门id查询部门，包括部门所含users
+     * @param id 部门id
+     * @return 部门及users
+     */
+    Department getDeptByIdAndUser(Integer id);
+
 }

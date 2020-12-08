@@ -8,4 +8,16 @@
         from department
         where id = #{id}
     </select>
+
+
+    <resultMap id="deptAndUsers" type="cn.edu.bjfu.domain.Department">
+        <id column="id" property="id" />
+        <result column="dept_name" property="departmentName"/>
+        <collection property="users" select="cn.edu.bjfu.dao.UserDaoPlus.getUsersByDeptId" column="id"/>
+    </resultMap>
+    <select id="getDeptByIdAndUser" resultMap="deptAndUsers">
+        select *
+        from department
+        where id = #{id}
+    </select>
 </mapper>
