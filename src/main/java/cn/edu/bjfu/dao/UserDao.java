@@ -1,9 +1,12 @@
 package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户的
@@ -11,6 +14,16 @@ import java.util.List;
  * @date 2020/12/6
  */
 public interface UserDao {
+
+
+    /**
+     * 返回map:Map<Integer, User>:键是这条记录的主键，值是记录封装后的javaBean
+     * MapKey告诉mybatis封装这个map的时候使用哪个属性作为map的key
+     * @param address 按地址查询
+     * @return map<Integer, User>
+     */
+    @MapKey("id")
+    Map<Integer, User> getUserByAddress(String address);
 
     /**
      * 根据id和username查询

@@ -11,7 +11,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Chao Huaiyu
@@ -45,11 +47,25 @@ public class UserDaoTest {
     }
 
     @Test
-    public void findByIdAndUsername(){
+    public void findByIdAndUsername() {
         try (SqlSession session = getSession()) {
             UserDao userDao = session.getMapper(UserDao.class);
             User user = userDao.findByIdAndUsername(58, "index");
             System.out.println(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void findByAddress() {
+        try (SqlSession session = getSession()) {
+            UserDao mapper = session.getMapper(UserDao.class);
+            Map<Integer, User> users = mapper.getUserByAddress("%北京%");
+            System.out.println(users);
+            users.entrySet().stream()
+                    .filter(u -> u.getValue().getAddress().contains("密云"))
+                    .forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +100,7 @@ public class UserDaoTest {
     public void deleteUser() {
         try (SqlSession session = getSession()) {
             UserDao userDao = session.getMapper(UserDao.class);
-            for (int i = 40; i <50 ; i++) {
+            for (int i = 40; i < 50; i++) {
                 Long count = userDao.deleteUser(i);
                 System.out.println(count);
             }

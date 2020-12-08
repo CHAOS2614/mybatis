@@ -3,10 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.bjfu.dao.UserDao">
-    <!-- 配置查询所有 -->
+    <!-- 配置查询所有
+            resultType:如果返回的是一个集合，要写集合中元素的类型-->
     <select id="findAll" resultType="cn.edu.bjfu.domain.User">
         select *
         from user
+    </select>
+
+    <!--Map<Integer, User> getUserByAddress(String address);-->
+    <select id="getUserByAddress" resultType="cn.edu.bjfu.domain.User">
+        select *
+        from user
+        where address like #{address}
     </select>
 
     <select id="findByIdAndUsername" resultType="cn.edu.bjfu.domain.User">
