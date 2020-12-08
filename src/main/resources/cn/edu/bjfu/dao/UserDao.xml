@@ -10,6 +10,28 @@
         from user
     </select>
 
+    <!-- 自定义某个javaBean的封装规则
+            id:唯一id方便引用;
+            type:自定义规则的java类型-->
+    <resultMap id="myUser" type="cn.edu.bjfu.domain.User">
+        <!-- 指定主键列的封装规则
+                id定义主键底层会有优化
+                column:指定列
+                property:指定对应的javaBean属性
+                不指定的列会自动封装，但是只要写resultMap最好把全部映射规则都写上-->
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+    </resultMap>
+    <!-- resultMap:自定义结果集规则 -->
+    <select id="getUserById" resultMap="myUser" >
+        select *
+        from user
+        where id=#{id}
+    </select>
+
     <!--Map<Integer, User> getUserByAddress(String address);-->
     <select id="getUserByAddress" resultType="cn.edu.bjfu.domain.User">
         select *

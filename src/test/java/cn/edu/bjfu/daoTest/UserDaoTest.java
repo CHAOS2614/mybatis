@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,18 @@ import java.util.Map;
 public class UserDaoTest {
 
     private String xmlName = "sqlmapconfig.xml";
+
+
+    @Test
+    public void getUserById(){
+        try (SqlSession session = getSession()) {
+            UserDao mapper = session.getMapper(UserDao.class);
+            User user = mapper.getUserById(56);
+            System.out.println(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void findAll() throws IOException {

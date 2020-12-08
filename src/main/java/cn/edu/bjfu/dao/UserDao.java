@@ -4,7 +4,6 @@ import cn.edu.bjfu.domain.User;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +14,12 @@ import java.util.Map;
  */
 public interface UserDao {
 
+    /**
+     * result
+     * @param id 要查询User的id
+     * @return user
+     */
+    User getUserById(Integer id);
 
     /**
      * 返回map:Map<Integer, User>:键是这条记录的主键，值是记录封装后的javaBean
