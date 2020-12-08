@@ -1,6 +1,7 @@
 package cn.edu.bjfu.daoTest;
 
 import cn.edu.bjfu.dao.UserDao;
+import cn.edu.bjfu.domain.Department;
 import cn.edu.bjfu.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -86,7 +87,7 @@ public class UserDaoTest {
     public void addUser() {
         try (SqlSession session = getSession()) {
             cn.edu.bjfu.dao.UserDao userDao = session.getMapper(cn.edu.bjfu.dao.UserDao.class);
-            User user = new User(null, "chaos", new Date(), "男", "北京密云");
+            User user = new User(null, "chaos", new Date(), "男", "北京密云",new Department());
             userDao.addUser(user);
             session.commit();
             System.out.println(user);
@@ -100,7 +101,7 @@ public class UserDaoTest {
     public void updateUser() {
         try (SqlSession session = getSession()) {
             UserDao userDao = session.getMapper(UserDao.class);
-            userDao.updateUser(new User(54, "志志", new Date(), "女", "北京海淀"));
+            userDao.updateUser(new User(54, "志志", new Date(), "女", "北京海淀",new Department()));
             session.commit();
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,7 +123,7 @@ public class UserDaoTest {
     }
 
 
-    private SqlSession getSession() throws IOException {
+    SqlSession getSession() throws IOException {
         //读取配置文件
         InputStream inputStream = Resources.getResourceAsStream(xmlName);
         //创建SqlSessionFactory工厂(构建者模式)

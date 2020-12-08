@@ -13,16 +13,18 @@ public class User {
     private Date birthday;
     private String sex;
     private String address;
+    private Department department;
 
     public User() {
     }
 
-    public User(Integer id, String username, Date birthday, String sex, String address) {
+    public User(Integer id, String username, Date birthday, String sex, String address,Department department) {
         this.id = id;
         this.username = username;
         this.birthday = birthday;
         this.sex = sex;
         this.address = address;
+        this.department = department;
     }
 
     public Integer getId() {
@@ -65,6 +67,14 @@ public class User {
         this.address = address;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -73,6 +83,7 @@ public class User {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", department=" + department +
                 '}';
     }
 }

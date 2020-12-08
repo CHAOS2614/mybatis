@@ -80,6 +80,8 @@
                 class:引用接口
                     1.有sql映射文件，且与接口同名并在同一目录下
                     2.利用注解-->
-        <mapper resource="cn/edu/bjfu/dao/UserDao.xml"/>
+        <mapper resource="cn/edu/bjfu/dao/UserDao.xml" />
+        <mapper resource="cn/edu/bjfu/dao/UserDaoPlus.xml" />
+        <mapper resource="cn/edu/bjfu/dao/DepartmentDao.xml" />
     </mappers>
 </configuration>

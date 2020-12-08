@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.bjfu.dao.UserDaoPlus">
+
+    <!-- 场景一:查询User的同时查询User所属的部门，一个员工有与之对应的部门信息
+     id username birthday sex address d_id id dept_name-->
+
+    <resultMap id="userAndDept" type="cn.edu.bjfu.domain.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+
+        <!-- 联合查询:级联属性封装结果集 -->
+        <!--
+        <result column="did" property="department.id" />
+        <result column="dept_name" property="department.departmentName" />
+        -->
+
+        <!-- association可以指定联合的javaBean对象
+                property:指定哪个属性是联合对象
+                javaType:指定这个对象的类型(不能省略)-->
+        <association property="department" javaType="cn.edu.bjfu.domain.Department">
+            <id column="did" property="id"/>
+            <result column="dept_name" property="departmentName"/>
+        </association>
+    </resultMap>
+    <select id="getUserAndDept" resultMap="userAndDept">
+        select u.id        id,
+               u.username  username,
+               u.birthday  birthday,
+               u.sex       sex,
+               u.address   address,
+               u.d_id      did,
+               d.id        did,
+               d.dept_name dept_name
+        from user u,
+             department d
+        where u.d_id = d.id
+          and u.id = #{id}
+    </select>
+
+    <!-- 使用association进行分步查询
+            1.先按照员工id查询员工信息
+            2.根据查询员工信息中的d_id去部门表查部门信息
+            4.设置部门信息到员工中-->
+    <resultMap id="userAndDeptByStep" type="cn.edu.bjfu.domain.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="birthday" property="birthday"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <!-- 定义关联对象的封装规则
+             select:表明当前属性是调用select指定的方法查出的结果-->
+        <association property="department" select="cn.edu.bjfu.dao.DepartmentDao.getDepartmentById" column="d_id"/>
+    </resultMap>
+    <select id="getUserAndDeptStep" resultMap="userAndDeptByStep">
+        select *
+        from user
+        where id = #{id}
+    </select>
+</mapper>
