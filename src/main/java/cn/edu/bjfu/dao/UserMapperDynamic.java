@@ -1,6 +1,8 @@
 package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -45,4 +47,11 @@ public interface UserMapperDynamic {
      * @return List
      */
     List<User> getUsersByConditionForeach(List<Integer> ids);
+
+    /**
+     * 批量插入
+     * @param users 插入users
+     * @return 数量
+     */
+    Long addUsers(@Param("users")List<User> users);
 }

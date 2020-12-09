@@ -113,4 +113,12 @@
         </foreach>
     </select>
 
+    <insert id="addUsers" >
+        insert into user(username,birthday,sex,address,d_id)
+        values
+        <foreach collection="users" separator="," item="user">
+            (#{user.username},#{user.birthday},#{user.sex},#{user.address},#{user.department.id})
+        </foreach>
+    </insert>
+
 </mapper>
