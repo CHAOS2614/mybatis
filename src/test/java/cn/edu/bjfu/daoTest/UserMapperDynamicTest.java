@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,6 +47,21 @@ public class UserMapperDynamicTest {
             UserMapperDynamic mapper = session.getMapper(UserMapperDynamic.class);
             mapper.updateUser(new User(65,"louise",new Date(),"女",null,null));
             session.commit();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void getUsersByConditionForeach(){
+        try (SqlSession session = new UserDaoTest().getSession()) {
+            UserMapperDynamic mapper = session.getMapper(UserMapperDynamic.class);
+            List<Integer> ids = new LinkedList<>();
+            ids.add(62);
+            ids.add(63);
+            ids.add(65);
+            List<User> users = mapper.getUsersByConditionForeach(ids);
+            users.forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();
         }

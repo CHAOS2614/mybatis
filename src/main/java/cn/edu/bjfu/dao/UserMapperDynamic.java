@@ -1,8 +1,6 @@
 package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
-
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -40,4 +38,11 @@ public interface UserMapperDynamic {
      * @param user user
      */
     void updateUser(User user);
+
+    /**
+     * 查询list中id的user
+     * @param ids id的List
+     * @return List
+     */
+    List<User> getUsersByConditionForeach(List<Integer> ids);
 }
