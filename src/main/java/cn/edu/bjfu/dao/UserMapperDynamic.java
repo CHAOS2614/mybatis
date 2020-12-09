@@ -13,6 +13,7 @@ public interface UserMapperDynamic {
 
     /**
      * 携带了哪个字段查询条件就带上这个字段的值
+     *
      * @param user user
      * @return user
      */
@@ -20,6 +21,7 @@ public interface UserMapperDynamic {
 
     /**
      * 解决where最后一个为空多出and报错
+     *
      * @param user user
      * @return users
      */
@@ -27,9 +29,15 @@ public interface UserMapperDynamic {
 
     /**
      * switch-case
+     *
      * @param user user
      * @return user
      */
     List<User> getUserByConditionChoose(User user);
 
+    /**
+     * update
+     * @param user user
+     */
+    void updateUser(User user);
 }

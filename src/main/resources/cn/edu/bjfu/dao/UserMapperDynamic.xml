@@ -69,9 +69,33 @@
                 <when test="address!=null and address!=&quot;&quot;">
                     address like #{address}
                 </when>
+                <otherwise>
+                    address like "%北京%"
+                </otherwise>
 
             </choose>
         </where>
     </select>
+
+    <update id="updateUser">
+        update user
+        <!-- 使用if标签只更新带参数的
+        -->
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="birthday!=null">
+                birthday = #{birthday},
+            </if>
+            <if test="sex!=null">
+                sex = #{sex},
+            </if>
+            <if test="address!=null">
+                address = #{address}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
 </mapper>
