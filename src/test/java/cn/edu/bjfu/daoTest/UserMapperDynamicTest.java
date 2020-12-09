@@ -20,7 +20,7 @@ public class UserMapperDynamicTest {
     public void getUsersByIf() {
         try (SqlSession session = new UserDaoTest().getSession()) {
             UserMapperDynamic mapper = session.getMapper(UserMapperDynamic.class);
-            List<User> users = mapper.getUsersByIf(new User(56,"%s%",null,null,null,null));
+            List<User> users = mapper.getUsersByIf(new User(null,"%s%",null,null,null,null));
             System.out.println(users);
         } catch (IOException e) {
             e.printStackTrace();
