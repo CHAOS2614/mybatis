@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.bjfu.dao.UserMapperDynamic">
+
+    <select id="getUsersByIf" resultType="cn.edu.bjfu.domain.User">
+        select * from user
+        where
+        <!-- test:判断表达式（OGNL）
+                从参数中取值进行判断
+                遇见特殊符号应该去写转义字符-->
+        <if test="id!=null">
+            id=#{id}
+        </if>
+        <if test="username!=null and username!=&quot;&quot;">
+            and username like #{username}
+        </if>
+        <if test="address!=null and address!=&quot;&quot;">
+            and address like #{address}
+        </if>
+    </select>
+
+
+</mapper>

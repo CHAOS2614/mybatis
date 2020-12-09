@@ -9,7 +9,7 @@
     <!-- 1.mybatis可以使用properties来引入外部properties配置文件的内容
            resource:引入类路径下的资源
            url:引入网络路径或磁盘路径下的资源 -->
-    <properties resource="dbconfig.properties" />
+    <properties resource="dbconfig.properties"/>
 
     <!-- 2.settings包含很多重要的设置项
            setting:用来设置每一个设置项
@@ -43,11 +43,11 @@
                 DataSource:数据源
                     type:数据源类型（UNPOOLED|POOLED|JNDI）-->
     <environments default="development">
-        
+
         <!-- 配置测试时的mysql的环境 -->
         <environment id="test">
-            <transactionManager type="JDBC" />
-            <dataSource type="POOLED" />
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED"/>
         </environment>
 
         <!-- 配置开发时的mysql的环境 -->
@@ -57,10 +57,10 @@
             <!-- 配置数据源(连接池) -->
             <dataSource type="POOLED">
                 <!-- 配置连接数据库的4个基本信息 -->
-                <property name="driver" value="${jdbc.driver}" />
-                <property name="url" value="${jdbc.url}" />
-                <property name="username" value="${jdbc.username}" />
-                <property name="password" value="${jdbc.password}" />
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
@@ -68,7 +68,7 @@
     <!-- 5.databaseIdProvider:支持多数据库厂商
            type="":
                 作用就是得到数据库厂商的标识，mybatis就能根据数据库厂商标识来执行不同的sql-->
-    <databaseIdProvider type="DB_VENDOR" >
+    <databaseIdProvider type="DB_VENDOR">
         <!-- 为不同的数据库厂商起别名 -->
         <property name="MySQL" value="mysql"/>
         <property name="Oracle" value="oracle"/>
@@ -82,8 +82,9 @@
                 class:引用接口
                     1.有sql映射文件，且与接口同名并在同一目录下
                     2.利用注解-->
-        <mapper resource="cn/edu/bjfu/dao/UserDao.xml" />
-        <mapper resource="cn/edu/bjfu/dao/UserDaoPlus.xml" />
-        <mapper resource="cn/edu/bjfu/dao/DepartmentDao.xml" />
+        <mapper resource="cn/edu/bjfu/dao/UserDao.xml"/>
+        <mapper resource="cn/edu/bjfu/dao/UserDaoPlus.xml"/>
+        <mapper resource="cn/edu/bjfu/dao/DepartmentDao.xml"/>
+        <mapper resource="cn/edu/bjfu/dao/UserMapperDynamic.xml"/>
     </mappers>
 </configuration>

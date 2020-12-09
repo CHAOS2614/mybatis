@@ -56,6 +56,10 @@
         <!-- 定义关联对象的封装规则
              select:表明当前属性是调用select指定的方法查出的结果-->
         <association property="department" select="cn.edu.bjfu.dao.DepartmentDao.getDepartmentById" column="d_id"/>
+        <!-- <discriminator javaType=""
+                鉴别器2:mybatis可以使用discriminator判断某列的值，然后根据某列的值改变封装行为
+                    column:指定判断的列名;
+                    JavaType:列值对应的java类型-->
     </resultMap>
     <select id="getUserAndDeptStep" resultMap="userAndDeptByStep">
         select *
