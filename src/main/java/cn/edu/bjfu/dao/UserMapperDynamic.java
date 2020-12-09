@@ -2,6 +2,7 @@ package cn.edu.bjfu.dao;
 
 import cn.edu.bjfu.domain.User;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -17,6 +18,11 @@ public interface UserMapperDynamic {
      */
     List<User> getUsersByIf(User user);
 
-
+    /**
+     * 解决where最后一个为空多出and报错
+     * @param user user
+     * @return users
+     */
+    List<User> getUsersTrim(User user);
 
 }

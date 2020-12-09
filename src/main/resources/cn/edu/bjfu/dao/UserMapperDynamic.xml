@@ -20,10 +20,37 @@
             <if test="username!=null and username!=&quot;&quot;">
                 and username like #{username}
             </if>
+            <if test="sex!=null and sex!=&quot;&quot;">
+                sex like #{sex} and
+            </if>
             <if test="address!=null and address!=&quot;&quot;">
                 and address like #{address}
             </if>
         </where>
+    </select>
+
+    <select id="getUsersTrim" resultType="cn.edu.bjfu.domain.User">
+        select * from user
+        <!-- where 只会去掉第一个，如果and写在每个条件之后，则最后一个条件为空的话依然报错，最后多个and
+             使用trim标签:标签中是整个字符串拼串之后的结果
+                prefix="":给整个字符串加一个前缀
+                prefixOverrides="":前缀覆盖，去掉整个字符串前面多余的字符
+                suffix="":给整个字符串加一个后缀
+                suffixOverrides"":后缀覆盖，去掉整个字符串后面多余的字符-->
+        <trim prefix="where" suffixOverrides="and">
+            <if test="id!=null">
+                id=#{id} and
+            </if>
+            <if test="username!=null and username!=&quot;&quot;">
+                username like #{username} and
+            </if>
+            <if test="sex!=null and sex!=&quot;&quot;">
+                sex like #{sex} and
+            </if>
+            <if test="address!=null and address!=&quot;&quot;">
+                address like #{address}
+            </if>
+        </trim>
     </select>
 
 </mapper>
