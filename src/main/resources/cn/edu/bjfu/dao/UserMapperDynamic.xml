@@ -53,4 +53,25 @@
         </trim>
     </select>
 
+    <select id="getUserByConditionChoose" resultType="cn.edu.bjfu.domain.User">
+        select * from user
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <when test="username!=null and username!=&quot;&quot;">
+                    username like #{username}
+                </when>
+                <when test="sex!=null and sex!=&quot;&quot;">
+                    sex like #{sex}
+                </when>
+                <when test="address!=null and address!=&quot;&quot;">
+                    address like #{address}
+                </when>
+
+            </choose>
+        </where>
+    </select>
+
 </mapper>

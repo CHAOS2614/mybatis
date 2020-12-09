@@ -25,4 +25,11 @@ public interface UserMapperDynamic {
      */
     List<User> getUsersTrim(User user);
 
+    /**
+     * switch-case
+     * @param user user
+     * @return user
+     */
+    List<User> getUserByConditionChoose(User user);
+
 }

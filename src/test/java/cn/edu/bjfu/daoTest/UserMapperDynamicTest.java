@@ -26,4 +26,15 @@ public class UserMapperDynamicTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void getUserByConditionChoose(){
+        try (SqlSession session = new UserDaoTest().getSession()) {
+            UserMapperDynamic mapper = session.getMapper(UserMapperDynamic.class);
+            List<User> users = mapper.getUserByConditionChoose(new User(56,"%s%",null,"%男%",null,null));
+            System.out.println(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
