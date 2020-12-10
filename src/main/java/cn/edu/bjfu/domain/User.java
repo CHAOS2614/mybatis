@@ -1,12 +1,15 @@
 package cn.edu.bjfu.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Chao Huaiyu
  * @date 2020/12/6
  */
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 245345375L;
 
     private Integer id;
     private String username;

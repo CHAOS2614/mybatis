@@ -2,10 +2,14 @@ package cn.edu.bjfu.daoTest;
 
 import cn.edu.bjfu.dao.UserDao;
 import cn.edu.bjfu.domain.User;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Chao Huaiyu
@@ -13,9 +17,7 @@ import java.io.IOException;
  */
 public class CacheTest {
 
-    @Test
-    public void firstLevelCache() {
-        /*
+    /*
         两级缓存:
             一级缓存:（本地缓存）SQLSession级别的缓存。一级缓存是一直开启;
                       与数据库同一次回话期间查询到的数据会放在本地缓存中。
@@ -26,8 +28,38 @@ public class CacheTest {
                             2.SqlSession相同，查询条件不同
                             3.SqlSession相同，查询之间执行了增删改操作
                             4.手动清除了缓存（session.clearCache();）
-            二级缓存:（全局缓存）
+            二级缓存:（全局缓存）:基于namespace级别的缓存;一个namespace对应一个二级缓存;
+                    工作机制:
+                        1.一个会话查询一条数据，这个数据就会被保存在当前会话的一级缓存中;
+                        2.如果会话关闭，一级缓存中的数据会被保存到二级缓存中，新的会话查询信息，就可以参照二级缓存;
+                        3.SQLSession===UserMapper==>User
+                                    ===DepartmentMapper==>Department
+                          不同namespace查出的数据会放在自己对应的缓存中（map）
+                    使用:
+                        1.开启全局二级缓存配置
+                        2.mapper.xml中配置使用二级缓存:<cache></cache>
+                        3.POJO实现序列化接口
+
          */
+
+    @Test
+    public void secondLevelCache() throws IOException {
+        InputStream inputStream = Resources.getResourceAsStream("sqlmapconfig.xml");
+        SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory factory = builder.build(inputStream);
+        SqlSession session = factory.openSession();
+        User user = session.getMapper(UserDao.class).getUserById(63);
+        System.out.println(user);
+        session.close();
+        session = factory.openSession();
+        User userById = session.getMapper((UserDao.class)).getUserById(63);
+        System.out.println(userById);
+        session.close();
+        inputStream.close();
+    }
+
+    @Test
+    public void firstLevelCache() {
         try (SqlSession session = new UserDaoTest().getSession();
              SqlSession session2 = new UserDaoTest().getSession()) {
             UserDao userMapper = session.getMapper(UserDao.class);
@@ -43,6 +75,16 @@ public class CacheTest {
             UserDao mapper = session2.getMapper(UserDao.class);
             User user2 = mapper.getUserById(63);
             System.out.println(user2 == user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getUser() {
+        try (SqlSession session = new UserDaoTest().getSession()) {
+            UserDao userMapper = session.getMapper(UserDao.class);
+            User user = userMapper.getUserById(63);
+            System.out.println(user);
         } catch (IOException e) {
             e.printStackTrace();
         }

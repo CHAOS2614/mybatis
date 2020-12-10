@@ -1,12 +1,16 @@
 package cn.edu.bjfu.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Chao Huaiyu
  * @date 2020/12/8
  */
-public class Department {
+public class Department implements Serializable {
+
+    private static final long serialVersionUID = 15345251345L;
+
     private Integer id;
     private String departmentName;
     private List<User> users;

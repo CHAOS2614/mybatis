@@ -18,8 +18,8 @@
     <settings>
         <!-- 开启驼峰命名转化，例如数据库中last_name和lastName可以对应上 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-
         <setting name="logImpl" value="LOG4J"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
     <!-- 3.typeAliases为某个java类型起别名

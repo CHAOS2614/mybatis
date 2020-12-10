@@ -3,6 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.bjfu.dao.UserDao">
+    <!--二级缓存配置
+            eviction:缓存回收策略:
+                LRU – 最近最少使用：移除最长时间不被使用的对象。
+                FIFO – 先进先出：按对象进入缓存的顺序来移除它们。
+                SOFT – 软引用：基于垃圾回收器状态和软引用规则移除对象。
+                WEAK – 弱引用：更积极地基于垃圾收集器状态和弱引用规则移除对象。
+            flushInterval:缓存刷新间隔，缓存多久清空一次，默认不清空，可以设置一个毫秒值
+            readOnly:是否只读
+                true:只读，所有从缓存中获取数据的操作都是只读操作，不会修改数据
+                     为了加快获取速度，直接将数据在缓存中的引用交给用户。速度快，不安全
+                false:非只读，利用序列化&反序列化技术克隆一份新数据给用户
+            size:缓存存放多少元素；
+            type:指定自定义缓存的全类名，实现Cache接口
+                -->
+    <cache/>
+
     <!-- 配置查询所有
             resultType:如果返回的是一个集合，要写集合中元素的类型-->
     <select id="findAll" resultType="cn.edu.bjfu.domain.User">
@@ -26,10 +42,10 @@
         <result column="address" property="address"/>
     </resultMap>
     <!-- resultMap:自定义结果集规则 -->
-    <select id="getUserById" resultMap="myUser" >
+    <select id="getUserById" resultMap="myUser">
         select *
         from user
-        where id=#{id}
+        where id = #{id}
     </select>
 
     <!--Map<Integer, User> getUserByAddress(String address);-->
