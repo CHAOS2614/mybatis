@@ -39,7 +39,18 @@ public class CacheTest {
                         1.开启全局二级缓存配置
                         2.mapper.xml中配置使用二级缓存:<cache></cache>
                         3.POJO实现序列化接口
-
+            和缓存相关的设置/属性:
+                1.cacheEnabled:开启与关闭二级缓存，不影响一级缓存
+                2.每个select标签都有useCache="true";
+                    false:不使用二级缓存，一级缓存依然适用
+                3.每个增删改标签:flushCache="true";一级二级都会清除
+                    增删改执行完成后就会清除缓存（一二级都清除）;
+                  查询标签:flushCache="false";
+                    如果flushCache="true"，每次查询之后都会清空缓存，也就说缓存没有被使用
+                4.sqlSession.clearCache();只是清除当前session的一级缓存;
+                5.localCacheScope:本地缓存作用域:
+                    一级缓存SESSION:当前会话的所有数据保存在会话缓存中;
+                    STATEMENT;可以禁用一级缓存
          */
 
     @Test
